@@ -6,14 +6,17 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MyToken is ERC721, ERC721URIStorage, Ownable {
+contract MyNFT is ERC721, ERC721URIStorage, Ownable {
     uint256 private _nextTokenId; // Token counter
     mapping(string => uint8) private existingURIs;
 
     constructor(address initialOwner)
         ERC721("MyNFT", "MNFT")
         Ownable(initialOwner)
-    {}
+    {
+        transferOwnership(initialOwner);
+        _nextTokenId = 1;
+    }
 
     // function _baseURI() internal pure override returns (string memory) {
     //     return "ipfs://";
