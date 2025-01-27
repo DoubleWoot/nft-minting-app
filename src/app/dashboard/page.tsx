@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
+import placeholder from "../../../public/Danbo.png";
 
 export default function Dashboard() {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
+  const [newItem, setNewItem] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchWalletDetails = async () => {
@@ -35,6 +37,10 @@ export default function Dashboard() {
       )}`
     : null;
 
+  const handleMintClick = () => {
+    setNewItem([...newItem, newItem.length]);
+  };
+
   return (
     <>
       <div className="bg-gray-800 h-16 w-full flex justify-between items-center px-4">
@@ -47,7 +53,39 @@ export default function Dashboard() {
         </p>
       </div>
       <div className="flex flex-col items-center justify-center m-6">
-        <h1 className="text-3xl md:text-4xl font-bold">Hello World!</h1>
+        <div className="grid grid-cols-5 gap-4">
+          <div className="bg-white/20 m-4 p-4 rounded-lg shadow-lg flex flex-col items-center">
+            <img
+              className="m-2 w-48 h-48"
+              src={placeholder.src}
+              alt="Placeholder NFT"
+            />
+            <button
+              className="flex p-2 rounded-lg bg-gray-600 mt-4"
+              onClick={handleMintClick}
+            >
+              Mint your token
+            </button>
+          </div>
+          {newItem.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white/20 m-4 p-4 rounded-lg shadow-lg flex flex-col items-center"
+            >
+              <img
+                className="m-2 w-48 h-48"
+                src={placeholder.src}
+                alt="Placeholder NFT"
+              />
+              <button
+                className="flex p-2 rounded-lg bg-gray-600 mt-4"
+                onClick={handleMintClick}
+              >
+                Mint your token
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
